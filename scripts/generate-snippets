@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+basedir="$(cd "$(dirname "$0")/.." && pwd)"
+
+rm -f "${basedir}/snippets"/**/*
+
+find "${basedir}/license-templates/templates" \
+  -type f \
+  -name '*.txt' -a ! -name '*-header.txt' |
+  while read -r file; do
+    name="${file##*/}"
+    name="${name%.txt}"
+    key="${name//_/}"
+    name="${name//_/ }"
+
+    {
+      cat <<EOM
+# -*- mode: snippet -*-
+# name: ${name}
+# key: ${key}
+# condition: (and buffer-file-name (string-equal (file-name-nondirectory buffer-file-name) "LICENSE"))
+# --
+
+EOM
+      sed -e 's/{{ year }}/${1:`(decoded-time-year (decode-time))`}/;s/{{ year }}/$1/g;s/{{ organization }}/$2/g;s/{{ project }}/$3/g' "$file"
+    } >"${basedir}/snippets/text-mode/${key}"
+  done

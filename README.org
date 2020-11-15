@@ -1,0 +1,30 @@
+#+TITLE: license-snippets
+
+** Description
+LICENSE templates for [[https://github.com/joaotavora/yasnippet][yasnippet]].
+
+** Install
+*** Manual Install
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/path/to/license-snippets")
+
+(require 'yasnippet)
+(require license-snippets)
+
+;; Make sure to call `license-snippets-init' after yasnippet loaded.
+(license-snippets-init)
+#+END_SRC
+
+*** Doom Emacs
+Add in your =$DOOMDIR/packages.el=:
+
+#+BEGIN_SRC emacs-lisp
+(package! license-snippets)
+#+END_SRC
+
+and then, add your =$DOOMDIR/config.el=:
+
+#+BEGIN_SRC emacs-lisp
+(after! license-snippets
+  (license-snippets-init))
+#+END_SRC
