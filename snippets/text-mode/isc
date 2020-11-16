@@ -4,7 +4,7 @@
 # condition: (and buffer-file-name (string-equal (file-name-nondirectory buffer-file-name) "LICENSE"))
 # --
 
-Copyright (c) ${1:`(decoded-time-year (decode-time))`}, $2
+Copyright (c) ${1:`(decoded-time-year (decode-time))`}, ${2:`user-full-name`}
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above

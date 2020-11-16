@@ -4,6 +4,18 @@ basedir="$(cd "$(dirname "$0")/.." && pwd)"
 
 rm -f "${basedir}/snippets"/**/*
 
+sed_commands=()
+# shellcheck disable=SC2016
+sed_commands+=( '0,/{{ year }}/s/{{ year }}/${1:`(decoded-time-year (decode-time))`}/' )
+# shellcheck disable=SC2016
+sed_commands+=( '0,/{{ organization }}/s/{{ organization }}/${2:`user-full-name`}/' )
+# shellcheck disable=SC2016
+sed_commands+=( 's/{{ year }}/$1/g' )
+# shellcheck disable=SC2016
+sed_commands+=( 's/{{ organization }}/$2/g' )
+# shellcheck disable=SC2016
+sed_commands+=( 's/{{ project }}/$3/g' )
+
 find "${basedir}/license-templates/templates" \
   -type f \
   -name '*.txt' -a ! -name '*-header.txt' |
@@ -22,6 +34,6 @@ find "${basedir}/license-templates/templates" \
 # --
 
 EOM
-      sed -e 's/{{ year }}/${1:`(decoded-time-year (decode-time))`}/;s/{{ year }}/$1/g;s/{{ organization }}/$2/g;s/{{ project }}/$3/g' "$file"
+      sed -e "$(IFS=';'; echo "${sed_commands[*]}")" "$file"
     } >"${basedir}/snippets/text-mode/${key}"
   done
