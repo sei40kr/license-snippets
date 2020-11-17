@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: mpl
 # key: mpl
-# condition: (and buffer-file-name (string-equal (file-name-nondirectory buffer-file-name) "LICENSE"))
+# condition: (let* ((base-name (and buffer-file-name (file-name-nondirectory buffer-file-name)))) (string-equal base-name "LICENSE"))
 # --
 
 Mozilla Public License, version 2.0

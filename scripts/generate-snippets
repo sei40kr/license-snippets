@@ -24,13 +24,18 @@ find "${basedir}/license-templates/templates" \
     name="${name%.txt}"
     key="${name//_/}"
     name="${name//_/ }"
+    condition='(string-equal base-name "LICENSE")'
+    if [[ "$name" == 'mit' ]]; then
+      condition="(or (string-equal base-name \"LICENSE-MIT\") ${condition})"
+    fi
+    condition="(let* ((base-name (and buffer-file-name (file-name-nondirectory buffer-file-name)))) ${condition})"
 
     {
       cat <<EOM
 # -*- mode: snippet -*-
 # name: ${name}
 # key: ${key}
-# condition: (and buffer-file-name (string-equal (file-name-nondirectory buffer-file-name) "LICENSE"))
+# condition: ${condition}
 # --
 
 EOM
