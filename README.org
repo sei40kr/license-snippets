@@ -11,7 +11,7 @@ LICENSE templates for [[https://github.com/joaotavora/yasnippet][yasnippet]].
 (add-to-list 'load-path "/path/to/license-snippets")
 
 (require 'yasnippet)
-(require license-snippets)
+(require 'license-snippets)
 
 ;; Make sure to call `license-snippets-init' after yasnippet loaded.
 (license-snippets-init)
