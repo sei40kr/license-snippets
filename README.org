@@ -1,5 +1,7 @@
 #+TITLE: license-snippets
 
+[[https://melpa.org/#/license-snippets][file:https://melpa.org/packages/license-snippets-badge.svg]]
+
 ** Description
 LICENSE templates for [[https://github.com/joaotavora/yasnippet][yasnippet]].
 
